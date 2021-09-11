@@ -13,6 +13,15 @@ import {
   DragAndDrop,
 } from "@syncfusion/ej2-react-schedule";
 
+import { Ajax, L10n, loadCldr } from "@syncfusion/ej2-base";
+
+loadCldr(
+  require("cldr-data/supplemental/numberingSystems.json"),
+  require("cldr-data/main/lt/ca-gregorian.json"),
+  require("cldr-data/main/lt/numbers.json"),
+  require("cldr-data/main/lt/timeZoneNames.json")
+);
+
 import {
   extend,
   Internationalization,
@@ -20,6 +29,128 @@ import {
 } from "@syncfusion/ej2-base";
 import { SampleBase } from "./sample-base";
 import * as dataSource from "./datasource.json";
+
+let localeTexts;
+let ajax = new Ajax("./locale.json", "GET", false);
+ajax.onSuccess = (value) => {
+  localeTexts = value;
+};
+ajax.send();
+L10n.load("./locale.json", "GET", false);
+
+L10n.load({
+  lt: {
+    schedule: {
+      day: "Diena",
+      week: "Savaitė",
+      workWeek: "Šiokiadieniai",
+      month: "Mėnesis",
+      agenda: "Agenda",
+      weekAgenda: "Week Agenda",
+      workWeekAgenda: "Work Week Agenda",
+      monthAgenda: "Mėnesio Agenda",
+      today: "Šiandien",
+      noEvents: "Jokių įvykių",
+      emptyContainer: "Nėra jokių įvykių šiai dienai.",
+      allDay: "Visą dieną",
+      start: "Pradžia",
+      end: "Pabaiga",
+      more: "Daugiau",
+      close: "Uždaryti",
+      cancel: "Nutraukti",
+      noTitle: "(Nėra pavadinimo)",
+      delete: "Ištrynti",
+      deleteEvent: "Pašalinti įvykį",
+      deleteMultipleEvent: "Pašalinti kelis įvykius",
+      selectedItems: "Pasirinkti įvykiai",
+      deleteSeries: "Pašalinti seriją",
+      edit: "Redaguoti",
+      editSeries: "Redaguoti seriją",
+      editEvent: "Redaguoti įvykį",
+      createEvent: "Sukurti",
+      subject: "Tema",
+      addTitle: "Pridėti pavadinimą",
+      moreDetails: "Plačiau",
+      save: "Išsaugoti",
+      editContent: "Ar norite redaguoti tik šį įvykį ar visa seriją?",
+      deleteRecurrenceContent:
+        "Ar norite pašalinti tik šį įvykį ar visa seriją?",
+      deleteContent: "Ar jūs įsitikinęs?",
+      deleteMultipleContent: "Ar jūs tikrai norite pašalinti visą seriją?",
+      newEvent: "Naujas įvykis",
+      title: "Pavadinimas",
+      location: "Lokacija",
+      description: "Aprašymas",
+      timezone: "Laiko zona",
+      startTimezone: "Pradėti laiko zoną",
+      endTimezone: "Užbaigti laiko zoną",
+      repeat: "Pakartoti",
+      saveButton: "Išsaugoti",
+      cancelButton: "Nutraukti",
+      deleteButton: "Ištrynti",
+      recurrence: "Kartojimas",
+      wrongPattern: "Pasikartoijmas nėra galimas",
+      seriesChangeAlert:
+        "Pasikeitimai atlikti tiksliem šios serijos atvėjam bus atšaukti ir įvykiai susiporuos serijoje iš naujo.",
+      createError:
+        "Įvykio trukmė privalo būti trumpesnė nei kiek dažnai atsikartoja. Sumažinkite trūkmę arba pakeiskite pasikartojimą.",
+      recurrenceDateValidation:
+        "Kai kurie mėnesiai yra trumpesni nei pasirinktos datos. Šiem mėnesiam pasikartojimas prasitęs iki paskutinės mėnesio dienos.",
+      sameDayAlert: "Du tie patys įvykiai negali vykti ta pačia dieną .",
+      editRecurrence: "Redaguoti kartojimą",
+      repeats: "Pasikartoja",
+      alert: "Dėmesio",
+      startEndError: "Pasirinktas pabaigos laikas yra prieš pradžios laiką.",
+      invalidDateError: "Įvestas datos formatas yra netinkamas.",
+      ok: "OK",
+      occurrence: "Atsitikimas",
+      series: "Serija",
+      previous: "Buvęs",
+      next: "Kitas",
+      timelineDay: "Laiko skalės diena",
+      timelineWeek: "Laiko skalės savaitė",
+      timelineWorkWeek: "Laiko skalės darbo savaitė",
+      timelineMonth: "Laiko skalės mėnesis",
+      expandAllDaySection: "Išplėsti",
+      collapseAllDaySection: "Sulankstyti",
+    },
+    recurrenceeditor: {
+      none: "Nėra",
+      daily: "Kasdienis",
+      weekly: "Savaitinis",
+      monthly: "Mėnesinis",
+      month: "Mėnesis",
+      yearly: "Metinis",
+      never: "Niekada",
+      until: "Iki",
+      count: "Rezultatas",
+      first: "Pirmas",
+      second: "Antras",
+      third: "Trečias",
+      fourth: "Ketvirtas",
+      last: "Paskutinis",
+      repeat: "Kartoti",
+      repeatEvery: "Kartoti kiekvieną",
+      on: "Kartoti per",
+      end: "Pabaiga",
+      onDay: "Diena",
+      days: "Dienos",
+      weeks: "Savaitės",
+      months: "Mėnesiai",
+      years: "Metai",
+      every: "kiekvieną",
+      summaryTimes: "laikai",
+      summaryOn: "per",
+      summaryUntil: "iki",
+      summaryRepeat: "Kartojasi",
+      summaryDay: "dienos",
+      summaryWeek: "savaitės",
+      summaryMonth: "Mėnesiai",
+      summaryYear: "Metai",
+    },
+  },
+});
+
 /**
  * schedule room scheduler sample
  */
@@ -176,6 +307,7 @@ export class TimelineResource extends SampleBase {
             <ScheduleComponent
               cssClass="timeline-resource"
               ref={(schedule) => (this.scheduleObj = schedule)}
+              locale="lt"
               width="100%"
               height="650px"
               selectedDate={new Date(2021, 8, 13)}
@@ -186,11 +318,11 @@ export class TimelineResource extends SampleBase {
                 dataSource: this.data,
                 fields: {
                   id: "Id",
-                  subject: { title: "Summary", name: "Subject" },
-                  location: { title: "Location", name: "Location" },
-                  description: { title: "Comments", name: "Description" },
-                  startTime: { title: "From", name: "StartTime" },
-                  endTime: { title: "To", name: "EndTime" },
+                  subject: { title: "Įvykis", name: "Subject" },
+                  location: { title: "Lokacija", name: "Location" },
+                  description: { title: "Aprašymas", name: "Description" },
+                  startTime: { title: "Nuo", name: "StartTime" },
+                  endTime: { title: "Iki", name: "EndTime" },
                 },
               }}
               eventRendered={this.onEventRendered.bind(this)}
@@ -202,7 +334,7 @@ export class TimelineResource extends SampleBase {
               <ResourcesDirective>
                 <ResourceDirective
                   field="RoomId"
-                  title="Room Type"
+                  title="Kambario tipas"
                   name="MeetingRoom"
                   allowMultiple={true}
                   dataSource={this.ownerData}
