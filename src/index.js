@@ -30,23 +30,23 @@ export class TimelineResource extends SampleBase {
     this.instance = new Internationalization();
     this.ownerData = [
       {
-        text: "Jammy",
+        text: "Main",
         id: 1,
         color: "#ea7a57",
         capacity: 20,
         type: "Conference",
       },
-      { text: "Tweety", id: 2, color: "#7fa900", capacity: 7, type: "Cabin" },
-      { text: "Nestle", id: 3, color: "#5978ee", capacity: 5, type: "Cabin" },
+      { text: "Hall", id: 2, color: "#7fa900", capacity: 7, type: "Cabin" },
+      { text: "Hall", id: 3, color: "#5978ee", capacity: 5, type: "Cabin" },
       {
-        text: "Phoenix",
+        text: "Upper-hall",
         id: 4,
         color: "#fec200",
         capacity: 15,
         type: "Conference",
       },
       {
-        text: "Mission",
+        text: "Main-desk",
         id: 5,
         color: "#df5286",
         capacity: 25,
@@ -54,22 +54,22 @@ export class TimelineResource extends SampleBase {
       },
       { text: "Hangout", id: 6, color: "#00bdae", capacity: 10, type: "Cabin" },
       {
-        text: "Rick Roll",
+        text: "2nd floor",
         id: 7,
         color: "#865fcf",
         capacity: 20,
         type: "Conference",
       },
-      { text: "Rainbow", id: 8, color: "#1aaa55", capacity: 8, type: "Cabin" },
+      { text: "Hall", id: 8, color: "#1aaa55", capacity: 8, type: "Cabin" },
       {
-        text: "Swarm",
+        text: "IT room",
         id: 9,
         color: "#df5286",
         capacity: 30,
         type: "Conference",
       },
       {
-        text: "Photogenic",
+        text: "Conference",
         id: 10,
         color: "#710193",
         capacity: 25,
@@ -178,7 +178,7 @@ export class TimelineResource extends SampleBase {
               ref={(schedule) => (this.scheduleObj = schedule)}
               width="100%"
               height="650px"
-              selectedDate={new Date(2018, 7, 1)}
+              selectedDate={new Date(2021, 8, 13)}
               workHours={{ start: "08:00", end: "18:00" }}
               timeScale={{ interval: 60, slotCount: 1 }}
               resourceHeaderTemplate={this.resourceHeaderTemplate.bind(this)}
